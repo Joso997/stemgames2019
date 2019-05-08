@@ -1,0 +1,76 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Decrypt;
+
+namespace Task1
+{
+    class Program
+    {
+        public const string data = "4.20 2\n0.53\n0.89";
+        static void Main(string[] args)
+        {
+            Calculation.Calculate(@"C:\Users\MirkoKojiRadi\Downloads\parachute\parachute_0.in");
+            Calculation.Calculate(@"C:\Users\MirkoKojiRadi\Downloads\parachute\parachute_1.in");
+            Calculation.Calculate(@"C:\Users\MirkoKojiRadi\Downloads\parachute\parachute_2.in");
+            Calculation.Calculate(@"C:\Users\MirkoKojiRadi\Downloads\parachute\parachute_3.in");
+            Calculation.Calculate(@"C:\Users\MirkoKojiRadi\Downloads\parachute\parachute_4.in");
+            Calculation.Calculate(@"C:\Users\MirkoKojiRadi\Downloads\parachute\parachute_5.in");
+            Calculation.Calculate(@"C:\Users\MirkoKojiRadi\Downloads\parachute\parachute_6.in");
+            Calculation.Calculate(@"C:\Users\MirkoKojiRadi\Downloads\parachute\parachute_7.in");
+            Calculation.Calculate(@"C:\Users\MirkoKojiRadi\Downloads\parachute\parachute_8.in");
+            Calculation.Calculate(@"C:\Users\MirkoKojiRadi\Downloads\parachute\parachute_9.in");
+            Console.ReadKey();
+        }
+
+        
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Decrypt
+{
+    public class Calculation
+    {
+        public static void Calculate(string path)
+        {
+            System.IO.StreamReader file = new System.IO.StreamReader(path);
+
+            string line = string.Empty;
+
+            double totalRadiusOfSurface = 0;
+            int numberOfIslands = 0;
+            var counter = 0;
+            double totalSurfaceOfIslands = 0;
+
+            while ((line = file.ReadLine()) != null)
+            {
+                if (counter == 0)
+                {
+                    var tmp = line.Split(' ');
+                    var radius = float.Parse(tmp[0]);
+                    totalRadiusOfSurface = Math.PI * radius * radius;
+                    numberOfIslands = int.Parse(tmp[1]);
+                }
+                else
+                {
+                    var tmp = float.Parse(line);
+                    totalSurfaceOfIslands += Math.PI * (tmp * tmp);
+                }
+                counter++;
+            }
+
+            var result = Math.Round((totalRadiusOfSurface - totalSurfaceOfIslands) / totalRadiusOfSurface, 2);
+
+            Console.WriteLine(result);
+        }
+
+
+    }
+}
